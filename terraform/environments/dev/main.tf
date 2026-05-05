@@ -108,20 +108,6 @@ EOF
   }
 }
 
-resource "google_bigquery_table" "rail_system_stations_bronze" {
-  dataset_id = "bronze"
-  table_id   = "rail_system_stations"
-  deletion_protection = false
-
-  # No schema for JSON, we use autodetect
-  external_data_configuration {
-    autodetect    = true
-    source_format = "NEWLINE_DELIMITED_JSON"
-    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/rail_system_stations/*.json"]
-    connection_id = module.bigquery.biglake_connection_id
-  }
-}
-
 # Silver Tables (BigLake Managed Iceberg Tables)
 # Note: We commented these out because BigQuery requires the Iceberg metadata files 
 # to exist in GCS before the table can be defined in Terraform.
