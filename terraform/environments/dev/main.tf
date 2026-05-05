@@ -60,12 +60,14 @@ resource "google_bigquery_table" "traffic_density_bronze" {
 EOF
 
   external_data_configuration {
+    autodetect    = false
     source_format = "CSV"
     source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/traffic_density/*.csv"]
     connection_id = module.bigquery.biglake_connection_id
     
     csv_options {
       skip_leading_rows = 1
+      quote             = "\""
     }
   }
 }
@@ -94,12 +96,14 @@ resource "google_bigquery_table" "hourly_transportation_bronze" {
 EOF
 
   external_data_configuration {
+    autodetect    = false
     source_format = "CSV"
     source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/hourly_transportation/*.csv"]
     connection_id = module.bigquery.biglake_connection_id
     
     csv_options {
       skip_leading_rows = 1
+      quote             = "\""
     }
   }
 }
