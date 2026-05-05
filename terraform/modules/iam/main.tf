@@ -20,4 +20,9 @@ resource "google_storage_bucket_iam_member" "biglake_gcs_reader" {
   member   = "serviceAccount:${var.biglake_service_account}"
 }
 
-# Add other IAM roles as needed
+# Add Storage Object Admin for Silver bucket so BigLake can WRITE Iceberg files
+resource "google_storage_bucket_iam_member" "biglake_gcs_writer" {
+  bucket = var.bucket_names[1] # This is the silver bucket in our passed list
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${var.biglake_service_account}"
+}

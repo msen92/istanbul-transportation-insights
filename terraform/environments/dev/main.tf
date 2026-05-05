@@ -36,7 +36,7 @@ module "bigquery" {
 module "iam" {
   source                  = "../../modules/iam"
   project_id              = var.project_id
-  bucket_names            = values(module.gcs.bucket_names)
+  bucket_names            = [module.gcs.bucket_names["bronze"], module.gcs.bucket_names["silver"]]
   biglake_service_account = module.bigquery.biglake_service_account
 }
 
