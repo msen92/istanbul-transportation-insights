@@ -48,27 +48,28 @@ resource "google_bigquery_table" "traffic_density_bronze" {
 
   schema = <<EOF
 [
-  {"name": "DATE_TIME", "type": "TIMESTAMP", "mode": "NULLABLE"},
-  {"name": "LATITUDE", "type": "FLOAT", "mode": "NULLABLE"},
-  {"name": "LONGITUDE", "type": "FLOAT", "mode": "NULLABLE"},
-  {"name": "GEOHASH", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "MINIMUM_SPEED", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "MAXIMUM_SPEED", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "AVERAGE_SPEED", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "NUMBER_OF_VEHICLES", "type": "INTEGER", "mode": "NULLABLE"}
+  {"name": "_id", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transition_date", "type": "DATE", "mode": "NULLABLE"},
+  {"name": "transition_hour", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transport_type_id", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "road_type", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "line", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "transfer_type", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "number_of_passage", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "number_of_passenger", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "product_kind", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "transaction_type_desc", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "town", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "line_name", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "station_poi_desc_cd", "type": "STRING", "mode": "NULLABLE"}
 ]
 EOF
 
   external_data_configuration {
     autodetect    = false
-    source_format = "CSV"
-    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/traffic_density/*.csv"]
+    source_format = "NEWLINE_DELIMITED_JSON"
+    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/traffic_density/*.json"]
     connection_id = module.bigquery.biglake_connection_id
-    
-    csv_options {
-      skip_leading_rows = 1
-      quote             = "\""
-    }
   }
 }
 
