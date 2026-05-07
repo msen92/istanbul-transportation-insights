@@ -21,6 +21,10 @@ resource "google_bigquery_dataset" "datasets" {
   project    = var.project_id
 }
 
+output "dataset_ids" {
+  value = { for k, v in google_bigquery_dataset.datasets : k => v.dataset_id }
+}
+
 resource "google_bigquery_connection" "biglake_connection" {
   connection_id = "biglake-connection"
   project       = var.project_id

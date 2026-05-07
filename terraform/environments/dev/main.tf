@@ -42,7 +42,7 @@ module "iam" {
 
 # Bronze External Tables (BigLake)
 resource "google_bigquery_table" "traffic_density_bronze" {
-  dataset_id = "bronze"
+  dataset_id = module.bigquery.dataset_ids["bronze"]
   table_id   = "traffic_density"
   deletion_protection = false
 
@@ -73,7 +73,7 @@ EOF
 }
 
 resource "google_bigquery_table" "hourly_transportation_bronze" {
-  dataset_id = "bronze"
+  dataset_id = module.bigquery.dataset_ids["bronze"]
   table_id   = "hourly_transportation"
   deletion_protection = false
 
