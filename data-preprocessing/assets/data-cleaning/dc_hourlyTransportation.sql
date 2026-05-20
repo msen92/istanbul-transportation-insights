@@ -12,4 +12,4 @@ depends:
 
 SELECT *
 FROM `datapsecta-bruin.silver.v2_hourly_transportation_202405`
-WHERE number_of_passenger > 10
+WHERE number_of_passenger > 0
