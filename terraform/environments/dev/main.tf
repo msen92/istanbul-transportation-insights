@@ -56,7 +56,7 @@ resource "google_bigquery_table" "traffic_density_bronze" {
   {"name": "MINIMUM_SPEED", "type": "FLOAT", "mode": "NULLABLE"},
   {"name": "MAXIMUM_SPEED", "type": "FLOAT", "mode": "NULLABLE"},
   {"name": "AVERAGE_SPEED", "type": "FLOAT", "mode": "NULLABLE"},
-  {"name": "NUMBER_OF_VEHICLES", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "NUMBER_OF_VEHICLES", "type": "INTEGER", "mode": "NULLABLE"}
 ]
 EOF
 
