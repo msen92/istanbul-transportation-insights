@@ -99,7 +99,7 @@ EOF
   external_data_configuration {
     autodetect    = false
     source_format = "CSV"
-    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/hourly_transportation/*.csv"]
+    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/hourly_transportation/*.json"]
     connection_id = module.bigquery.biglake_connection_id
     
     csv_options {
@@ -135,7 +135,7 @@ EOF
   external_data_configuration {
     autodetect    = false
     source_format = "CSV"
-    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/rail_system_stats/*.csv"]
+    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/rail_system_stats/*.json"]
     connection_id = module.bigquery.biglake_connection_id
     
     csv_options {
