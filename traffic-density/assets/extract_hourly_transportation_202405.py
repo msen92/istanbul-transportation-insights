@@ -14,7 +14,7 @@ import os
 def run():
     # 1. Configuration from .bruin.yml or Environment
     bucket_name = os.getenv("BRONZE_BUCKET")
-    resource_id = "f0efe978-7451-40d4-a03e-d8d7b992ae78"
+    resource_id = "e653ab7b-22d3-419a-b55d-70ec99c6c312"
     base_url = f"https://data.ibb.gov.tr/api/3/action/datastore_search?resource_id={resource_id}"
     
     # 2. Fetching Logic (with pagination)

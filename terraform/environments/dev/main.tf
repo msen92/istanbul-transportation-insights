@@ -49,19 +49,14 @@ resource "google_bigquery_table" "traffic_density_bronze" {
   schema = <<EOF
 [
   {"name": "_id", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "transition_date", "type": "DATE", "mode": "NULLABLE"},
-  {"name": "transition_hour", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "transport_type_id", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "road_type", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "line", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "transfer_type", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "number_of_passage", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "number_of_passenger", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "product_kind", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "transaction_type_desc", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "town", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "line_name", "type": "STRING", "mode": "NULLABLE"},
-  {"name": "station_poi_desc_cd", "type": "STRING", "mode": "NULLABLE"}
+  {"name": "DATE_TIME", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "LATITUDE", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "LONGITUDE", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "GEOHASH", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "MINIMUM_SPEED", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "MAXIMUM_SPEED", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "AVERAGE_SPEED", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "NUMBER_OF_VEHICLES", "type": "INTEGER", "mode": "NULLABLE"},
 ]
 EOF
 
@@ -80,6 +75,7 @@ resource "google_bigquery_table" "hourly_transportation_bronze" {
 
   schema = <<EOF
 [
+  {"name": "_id", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transition_date", "type": "DATE", "mode": "NULLABLE"},
   {"name": "transition_hour", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transport_type_id", "type": "INTEGER", "mode": "NULLABLE"},
@@ -111,7 +107,7 @@ resource "google_bigquery_table" "rail_system_stats_bronze" {
 
   schema = <<EOF
 [
-{"name": "id", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "_id", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transaction_year", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transaction_month", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transaction_day", "type": "INTEGER", "mode": "NULLABLE"},
