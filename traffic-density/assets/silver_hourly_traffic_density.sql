@@ -1,11 +1,11 @@
 /* @bruin
-name: silver.hourly_traffic_density
+name: silver.traffic_density_202405
 type: bq.sql
 materialization:
    type: table
 
 depends:
-   - extract_hourly_traffic_density
+   - extract_hourly_traffic_density_202405
 
 columns:
   - name: COORDINATE

@@ -109,6 +109,42 @@ EOF
   }
 }
 
+resource "google_bigquery_table" "rail_system_stats_bronze" {
+  dataset_id = module.bigquery.dataset_ids["bronze"]
+  table_id   = "rail_system_stats"
+  deletion_protection = false
+
+  schema = <<EOF
+[
+{"name": "id", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transaction_year", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transaction_month", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transaction_day", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "line", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "station_name", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "station_number", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "age", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "town", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "longitude", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "latitude", "type": "FLOAT", "mode": "NULLABLE"},
+  {"name": "passage_cnt", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "passanger_cnt", "type": "INTEGER", "mode": "NULLABLE"}
+]
+EOF
+
+  external_data_configuration {
+    autodetect    = false
+    source_format = "CSV"
+    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/rail_system_stats/*.csv"]
+    connection_id = module.bigquery.biglake_connection_id
+    
+    csv_options {
+      skip_leading_rows = 1
+      quote             = "\""
+    }
+  }
+}
+
 # Silver Tables (BigLake Managed Iceberg Tables)
 # Note: We commented these out because BigQuery requires the Iceberg metadata files 
 # to exist in GCS before the table can be defined in Terraform.
