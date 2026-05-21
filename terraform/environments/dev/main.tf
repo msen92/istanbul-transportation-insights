@@ -68,6 +68,38 @@ EOF
   }
 }
 
+resource "google_bigquery_table" "hourly_transportation_bronze" {
+  dataset_id = module.bigquery.dataset_ids["bronze"]
+  table_id   = "hourly_transportation"
+  deletion_protection = false
+
+  schema = <<EOF
+[
+  {"name": "transition_date", "type": "DATE", "mode": "NULLABLE"},
+  {"name": "transition_hour", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transport_type_id", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "road_type", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "line", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "transfer_type", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "number_of_passage", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "number_of_passenger", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "product_kind", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "transaction_type_desc", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "town", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "line_name", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "station_poi_desc_cd", "type": "STRING", "mode": "NULLABLE"}
+]
+EOF
+
+  external_data_configuration {
+    autodetect    = false
+    source_format = "NEWLINE_DELIMITED_JSON"
+    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/hourly_transportation/*.json"]
+    connection_id = module.bigquery.biglake_connection_id
+  }
+}
+
+
 resource "google_bigquery_table" "rail_system_stats_bronze" {
   dataset_id = module.bigquery.dataset_ids["bronze"]
   table_id   = "rail_system_stats"
