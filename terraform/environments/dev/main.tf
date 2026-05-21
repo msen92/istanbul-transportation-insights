@@ -75,6 +75,7 @@ resource "google_bigquery_table" "hourly_transportation_bronze" {
 
   schema = <<EOF
 [
+  {"name": "_id", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transition_date", "type": "DATE", "mode": "NULLABLE"},
   {"name": "transition_hour", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transport_type_id", "type": "INTEGER", "mode": "NULLABLE"},
