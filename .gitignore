@@ -1,6 +1,9 @@
+.env
 .bruin.yml
 logs/runs
 logs/*.log
 __pycache__/
 *.py[cod]
 hourly_transportation_202405.csv
+.venv
+traffic-density\.venv
