@@ -7,3 +7,4 @@ __pycache__/
 hourly_transportation_202405.csv
 .venv
 traffic-density\.venv
+logs/queries
