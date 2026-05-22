@@ -91,6 +91,11 @@ custom_checks:
         AND TRANSFER_TYPE IS NOT NULL
     value: 0
 
+  - name: year-check-for-2024
+    description: all dates must be from 2024
+    query: SELECT count(*) as not2024 FROM `datapsecta-bruin.silver.hourly_transportation` WHERE EXTRACT(YEAR FROM DATE_TIME) != 2024;
+    value: 0
+
 @bruin */
 
 SELECT
