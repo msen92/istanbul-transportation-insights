@@ -69,8 +69,8 @@ EOF
 }
 
 resource "google_bigquery_table" "hourly_transportation_bronze" {
-  dataset_id = module.bigquery.dataset_ids["bronze"]
-  table_id   = "hourly_transportation"
+  dataset_id          = module.bigquery.dataset_ids["bronze"]
+  table_id            = "hourly_transportation"
   deletion_protection = false
 
   schema = <<EOF
@@ -94,8 +94,8 @@ EOF
 
   external_data_configuration {
     autodetect    = false
-    source_format = "NEWLINE_DELIMITED_JSON"
-    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/hourly_transportation/*.json"]
+    source_format = "PARQUET"
+    source_uris   = ["gs://${module.gcs.bucket_names["bronze"]}/hourly_transportation/*.parquet"]
     connection_id = module.bigquery.biglake_connection_id
   }
 }
