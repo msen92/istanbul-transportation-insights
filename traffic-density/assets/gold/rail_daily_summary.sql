@@ -1,10 +1,12 @@
 /* @bruin
-name: silver.rail_daily_summary
+name: gold.rail_daily_summary
 type: bq.sql
 
 materialization:
   type: table
   strategy: create+replace
+
+
 
 @bruin */
 
@@ -22,7 +24,7 @@ SELECT
 
   SUM(SAFE_CAST(passanger_cnt AS INT64)) AS total_rail_passengers
 
-FROM datapsecta-bruin.bronze.rail_systems_stats_2024
+FROM datapsecta-bruin.bronze.rail_system_stats
 
 WHERE transaction_year IS NOT NULL
   AND transaction_month IS NOT NULL

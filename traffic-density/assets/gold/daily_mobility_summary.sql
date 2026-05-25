@@ -7,9 +7,9 @@ materialization:
   strategy: create+replace
 
 depends:
-  - silver.rail_daily_summary
-  - silver.transportation_daily_road_summary
-  - silver.traffic_daily_summary
+  - gold.rail_daily_summary
+  - gold.transportation_daily_road_summary
+  - gold.traffic_daily_summary
 
 @bruin */
 
@@ -22,7 +22,7 @@ SELECT
 
   traffic.daily_avg_speed AS daily_avg_speed
 
-FROM datapsecta-bruin.silver.rail_daily_summary AS r
+FROM datapsecta-bruin.gold.rail_daily_summary AS r
 
 INNER JOIN datapsecta-bruin.silver.transportation_daily_road_summary AS road
   ON r.rail_date = road.transportation_date
