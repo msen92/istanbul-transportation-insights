@@ -77,8 +77,8 @@ resource "google_bigquery_table" "hourly_transportation_bronze" {
 [
   {"name": "_id", "type": "INTEGER", "mode": "NULLABLE"},
   {"name": "transition_date", "type": "DATE", "mode": "NULLABLE"},
-  {"name": "transition_hour", "type": "INTEGER", "mode": "NULLABLE"},
-  {"name": "transport_type_id", "type": "INTEGER", "mode": "NULLABLE"},
+  {"name": "transition_hour", "type": "STRING", "mode": "NULLABLE"},
+  {"name": "transport_type_id", "type": "STRING", "mode": "NULLABLE"},
   {"name": "road_type", "type": "STRING", "mode": "NULLABLE"},
   {"name": "line", "type": "STRING", "mode": "NULLABLE"},
   {"name": "transfer_type", "type": "STRING", "mode": "NULLABLE"},

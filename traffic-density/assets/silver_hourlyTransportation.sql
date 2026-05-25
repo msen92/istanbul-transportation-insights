@@ -17,7 +17,7 @@ columns:
       - name: not_null
 
   - name: TRANSPORT_TYPE_ID
-    type: int
+    type: string
     description: "identifier for the type of transport vehicle or system"
 
   - name: ROAD_TYPE
@@ -82,8 +82,8 @@ custom_checks:
 @bruin */
 
 SELECT
-DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT) HOUR) AS DATE_TIME
-,TRANSPORT_TYPE_ID
+DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT64) HOUR) AS DATE_TIME
+,CAST(TRANSPORT_TYPE_ID AS INT64) AS TRANSPORT_TYPE_ID
 ,ROAD_TYPE
 ,LINE
 ,TRANSFER_TYPE
