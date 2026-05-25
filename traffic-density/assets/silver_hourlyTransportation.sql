@@ -33,13 +33,13 @@ columns:
     description: "indicates if the transaction is a normal boarding or a transfer"
 
   - name: NUMBER_OF_PASSAGE
-    type: int
+    type: string
     description: "the total number of card validations (tap-ins), including all transfers"
     checks:
       - name: not_null
 
   - name: NUMBER_OF_PASSENGER
-    type: int
+    type: string
     description: "the estimated total number of unique individual passengers"
     checks:
       - name: not_null
@@ -87,8 +87,8 @@ DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT) HO
 ,ROAD_TYPE
 ,LINE
 ,TRANSFER_TYPE
-,NUMBER_OF_PASSAGE
-,NUMBER_OF_PASSENGER
+,CAST(number_of_passage AS INT64) AS NUMBER_OF_PASSAGE
+,CAST(number_of_passenger AS INT64) AS NUMBER_OF_PASSENGER
 ,PRODUCT_KIND
 ,TRANSACTION_TYPE_DESC
 ,TOWN
