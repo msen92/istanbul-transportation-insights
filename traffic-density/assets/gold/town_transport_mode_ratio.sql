@@ -7,8 +7,8 @@ materialization:
   strategy: create+replace
 
 depends:
-  - silver.rail_town_summary
-  - silver.transportation_town_mode_summary
+  - gold.rail_town_summary
+  - gold.transportation_town_mode_summary
 
 @bruin */
 

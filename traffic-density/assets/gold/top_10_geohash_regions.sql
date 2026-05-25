@@ -7,7 +7,7 @@ materialization:
   strategy: create+replace
 
 depends:
-  - silver.traffic_hourly_summary
+  - gold.traffic_hourly_summary
 
 @bruin */
 
