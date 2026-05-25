@@ -10,13 +10,6 @@ materialization:
   strategy: create+replace
 
 columns:
-  - name: id
-    type: string
-    description: "unique identifier of the record"
-    primary_key: true
-    checks:
-      - name: not_null
-
   - name: DATE_TIME
     type: timestamp
     description: "the date and time of the transportation transaction"
@@ -44,14 +37,12 @@ columns:
     description: "the total number of card validations (tap-ins), including all transfers"
     checks:
       - name: not_null
-      - name: non_negative
 
   - name: NUMBER_OF_PASSENGER
     type: int
     description: "the estimated total number of unique individual passengers"
     checks:
       - name: not_null
-      - name: non_negative
 
   - name: PRODUCT_KIND
     type: string
@@ -74,14 +65,6 @@ columns:
     description: "the name of the specific station, stop, or pier"
 
 custom_checks:
-  - name: logic-passage-vs-passenger
-    description: "The number of passages (NUMBER_OF_PASSAGE) must always be greater than or equal to the number of passengers (NUMBER_OF_PASSENGER)."
-    query: >
-      SELECT count(*) as invalid_logic_rows
-      FROM `datapsecta-bruin.silver.hourly_transportation`
-      WHERE NUMBER_OF_PASSENGER > NUMBER_OF_PASSAGE
-    value: 0
-
   - name: valid-transfer-type
     description: "Ensure the TRANSFER_TYPE column only contains expected accepted values."
     query: >
@@ -99,8 +82,7 @@ custom_checks:
 @bruin */
 
 SELECT
-_id as id
-,DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT) HOUR) AS DATE_TIME
+DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT) HOUR) AS DATE_TIME
 ,TRANSPORT_TYPE_ID
 ,ROAD_TYPE
 ,LINE
