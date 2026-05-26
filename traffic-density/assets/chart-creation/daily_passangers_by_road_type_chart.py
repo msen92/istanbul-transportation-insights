@@ -6,7 +6,7 @@ description: "Grouped bar chart showing daily passengers by road type with visib
 tags:
   - daily_passengers_by_road_type_chart
 depends:
-  - gold.daily_passengers_by_road_type
+  - gold.may_daily_passengers_by_road_type
 @bruin"""
 
 from google.cloud import bigquery
@@ -19,7 +19,7 @@ import os
 client = bigquery.Client()
 
 # 2. Define the exact table path 
-table_id = "datapsecta-bruin.gold.daily_passengers_by_road_type"
+table_id = "datapsecta-bruin.gold.may_daily_passengers_by_road_type"
 
 # 3. Fetch the entire table directly and convert to DataFrame
 print(f"Fetching entire table ({table_id}) from BigQuery...")

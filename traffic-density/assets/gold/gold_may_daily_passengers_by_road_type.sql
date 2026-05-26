@@ -1,9 +1,9 @@
 /* @bruin
-name: gold.daily_passengers_by_road_type
+name: gold.may_daily_passengers_by_road_type
 type: bq.sql
 description: "Gold layer table containing the daily total number of passengers categorized by road type for May."
 tags:
-  - daily_passengers_by_road_type
+  - may_daily_passengers_by_road_type
 depends:
   - silver.hourly_transportation
 materialization:

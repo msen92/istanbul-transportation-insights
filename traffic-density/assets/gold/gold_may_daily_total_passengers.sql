@@ -1,9 +1,9 @@
 /* @bruin
-name: gold.daily_total_passengers
+name: gold.may_daily_total_passengers
 type: bq.sql
 description: "Gold layer (summary) table containing the daily total number of passengers for May."
 tags:
-  - daily_total_passengers
+  - may_daily_total_passengers
 depends:
   - silver.hourly_transportation
 materialization:
