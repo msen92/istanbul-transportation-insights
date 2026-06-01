@@ -1,0 +1,27 @@
+[project]
+name = "dagster-bruin"
+description = "<insert description here>"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dagster>=1.8.0",
+]
+dynamic = ["version"]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff",
+    "pytest",
+    "pyright>=1.1.386",
+    "dagster-webserver",
+]
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["dagster_bruin"]
+
+[tool.setuptools.dynamic]
+version = {attr = "dagster_bruin.__version__"}

@@ -1,0 +1,11 @@
+[project]
+name = "istanbul-transportation-insights"
+version = "0.1.0"
+description = "Capstone project for Istanbul transportation data insights"
+dependencies = [
+    "requests>=2.31.0",
+    "pandas>=2.1.0",
+    "google-cloud-storage>=2.10.0",
+    "google-cloud-bigquery>=3.11.0",
+    "pyarrow>=13.0.0",
+]

@@ -1,0 +1,19 @@
+name: istanbul-transportations-insights-pipeline
+schedule: daily
+start_date: "2023-03-20"
+catchup: false
+
+variables:
+  traffic_density:
+    type: object
+    properties:
+      dataset_id:
+        type: string
+      resource_id:
+        type: string
+      file_name:
+        type: string
+    default:  
+      dataset_id: 3ee6d744-5da2-40c8-9cd6-0e3e41f1928f
+      resource_id: dc788908-2b75-434f-9f3f-ef82ff33a158
+      file_name: traffic_density_202401.csv

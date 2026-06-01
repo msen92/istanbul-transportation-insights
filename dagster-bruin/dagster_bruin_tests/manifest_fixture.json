@@ -1,0 +1,203 @@
+{
+    "legacy_id": "",
+    "name": "bruin-init",
+    "tags": [],
+    "domains": [],
+    "meta": {},
+    "owner": "",
+    "schedule": "daily",
+    "start_date": "2023-03-20",
+    "definition_file": {
+        "name": "pipeline.yml",
+        "path": "/path/to/pipeline.yml"
+    },
+    "default_connections": {},
+    "assets": [
+        {
+            "id": "6cf344c0546ad6b9c041fc702f00d25f9dd844bb12f0f76b6de72802dde6b446",
+            "uri": "",
+            "name": "ingestion_1",
+            "type": "python",
+            "description": "",
+            "start_date": "",
+            "connection": "",
+            "tags": [],
+            "domains": [],
+            "meta": {},
+            "materialization": null,
+            "upstreams": [],
+            "image": "python:3.11-slim",
+            "instance": "",
+            "owner": "",
+            "executable_file": {
+                "name": "ingestion_1.py",
+                "path": "/path/to/ingestion_1.py",
+                "content": ""
+            },
+            "definition_file": {
+                "name": "ingestion_1.py",
+                "path": "/path/to/ingestion_1.py",
+                "type": "comment"
+            },
+            "parameters": {},
+            "secrets": [],
+            "extends": null,
+            "columns": [],
+            "custom_checks": [],
+            "hooks": {},
+            "metadata": {},
+            "snowflake": null,
+            "athena": null,
+            "interval_modifiers": null
+        },
+        {
+            "id": "5a9726c965717c962da11b47752a37fd0a6a171e706f72aa14774808c16ce337",
+            "uri": "",
+            "name": "bronze.ingestion_2",
+            "type": "ingestr",
+            "description": "",
+            "start_date": "",
+            "connection": "gcs-bronze",
+            "tags": [],
+            "domains": [],
+            "meta": {},
+            "materialization": null,
+            "upstreams": [],
+            "image": "",
+            "instance": "",
+            "owner": "",
+            "executable_file": {
+                "name": "ingestion_2.asset.yml",
+                "path": "/path/to/ingestion_2.asset.yml",
+                "content": ""
+            },
+            "definition_file": {
+                "name": "ingestion_2.asset.yml",
+                "path": "/path/to/ingestion_2.asset.yml",
+                "type": "yaml"
+            },
+            "parameters": {
+                "destination": "gcs",
+                "file_type": "jsonl",
+                "source_connection": "http",
+                "source_table": "data"
+            },
+            "secrets": [
+                {
+                    "secret_key": "gcs-bronze",
+                    "injected_key": "gcs-bronze"
+                }
+            ],
+            "extends": null,
+            "columns": [],
+            "custom_checks": [],
+            "hooks": {},
+            "metadata": {},
+            "snowflake": null,
+            "athena": null,
+            "interval_modifiers": null
+        },
+        {
+            "id": "3f329df0680d9f1ec5742490876fda3a41feacb2b3bdeacbeb344285baa71ab5",
+            "uri": "",
+            "name": "silver.transformation_1",
+            "type": "bq.sql",
+            "description": "",
+            "start_date": "",
+            "connection": "",
+            "tags": [],
+            "domains": [],
+            "meta": {},
+            "materialization": {
+                "type": "table",
+                "strategy": "",
+                "partition_by": "",
+                "cluster_by": null,
+                "incremental_key": "",
+                "time_granularity": ""
+            },
+            "upstreams": [
+                {
+                    "type": "asset",
+                    "value": "ingestion_1",
+                    "columns": [],
+                    "mode": "full"
+                },
+                {
+                    "type": "asset",
+                    "value": "ingestion_2",
+                    "columns": [],
+                    "mode": "full"
+                }
+            ],
+            "image": "",
+            "instance": "",
+            "owner": "",
+            "executable_file": {
+                "name": "transformation_1.sql",
+                "path": "/path/to/transformation_1.sql",
+                "content": ""
+            },
+            "definition_file": {
+                "name": "transformation_1.sql",
+                "path": "/path/to/transformation_1.sql",
+                "type": "comment"
+            },
+            "parameters": {},
+            "secrets": [],
+            "extends": null,
+            "columns": [
+                {
+                    "entity_attribute": null,
+                    "name": "column_1",
+                    "type": "string",
+                    "description": "Description of colum 1",
+                    "tags": [],
+                    "primary_key": false,
+                    "update_on_merge": false,
+                    "merge_sql": "",
+                    "nullable": true,
+                    "owner": "",
+                    "domains": [],
+                    "meta": {},
+                    "checks": [
+                        {
+                            "id": "87f9bb7470bc7a887a6b5b8d685af40eafd4055e0443df75161b9d6ffed30e46",
+                            "name": "not_null",
+                            "value": null,
+                            "blocking": true,
+                            "description": ""
+                        }
+                    ],
+                    "upstreams": []
+                }
+            ],
+            "custom_checks": [],
+            "hooks": {},
+            "metadata": {},
+            "snowflake": null,
+            "athena": null,
+            "interval_modifiers": null
+        }
+    ],
+    "notifications": {
+        "slack": [],
+        "ms_teams": [],
+        "discord": [],
+        "webhook": []
+    },
+    "catchup": false,
+    "catchup_mode": "",
+    "metadata_push": {
+        "bigquery": false
+    },
+    "retries": 0,
+    "concurrency": 1,
+    "max_active_steps": null,
+    "commit": "",
+    "snapshot": "",
+    "agent": false,
+    "variables": null,
+    "selected_variant": "",
+    "macros": []
+}

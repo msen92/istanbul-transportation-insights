@@ -8,3 +8,6 @@ hourly_transportation_202405.csv
 .venv
 traffic-density\.venv
 logs/queries
+.tmp_dagster_*
+.vscode
+.pytest_cache
