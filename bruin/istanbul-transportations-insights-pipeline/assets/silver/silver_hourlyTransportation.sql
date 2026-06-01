@@ -1,0 +1,100 @@
+/* @bruin
+name: silver.hourly_transportation
+type: bq.sql
+description: >
+  "the table contains the hourly public transportation statistics of different regions of istanbul in a specified time interval"
+tags:
+  - hourly_transportation
+  - silver
+materialization:
+  type: table
+  strategy: create+replace
+depends:
+  - bronze.hourly_transportation
+columns:
+  - name: DATE_TIME
+    type: timestamp
+    description: "the date and time of the transportation transaction"
+    checks:
+      - name: not_null
+
+  - name: TRANSPORT_TYPE_ID
+    type: string
+    description: "identifier for the type of transport vehicle or system"
+
+  - name: ROAD_TYPE
+    type: string
+    description: "classification of the road or transport path"
+
+  - name: LINE
+    type: string
+    description: "the specific transport line code or identifier"
+
+  - name: TRANSFER_TYPE
+    type: string
+    description: "indicates if the transaction is a normal boarding or a transfer"
+
+  - name: NUMBER_OF_PASSAGE
+    type: string
+    description: "the total number of card validations (tap-ins), including all transfers"
+    checks:
+      - name: not_null
+
+  - name: NUMBER_OF_PASSENGER
+    type: string
+    description: "the estimated total number of unique individual passengers"
+    checks:
+      - name: not_null
+
+  - name: PRODUCT_KIND
+    type: string
+    description: "type of the ticket or card used (e.g., full fare, student, discounted)"
+
+  - name: TRANSACTION_TYPE_DESC
+    type: string
+    description: "detailed description of the transaction type"
+
+  - name: TOWN
+    type: string
+    description: "the district or town where the transaction occurred"
+
+  - name: LINE_NAME
+    type: string
+    description: "the readable name of the transport line"
+
+  - name: station_poi_desc_cd
+    type: string
+    description: "the name of the specific station, stop, or pier"
+
+custom_checks:
+  - name: valid-transfer-type
+    description: "Ensure the TRANSFER_TYPE column only contains expected accepted values."
+    query: >
+      SELECT count(*) as invalid_transfer_types
+      FROM `silver.hourly_transportation`
+      WHERE TRANSFER_TYPE NOT IN ('Normal', 'Aktarma', 'Ucretsiz') 
+        AND TRANSFER_TYPE IS NOT NULL
+    value: 0
+
+  - name: year-check-for-2024
+    description: all dates must be from 2024
+    query: SELECT count(*) as not2024 FROM `silver.hourly_transportation` WHERE EXTRACT(YEAR FROM DATE_TIME) != 2024;
+    value: 0
+
+@bruin */
+
+SELECT
+DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT64) HOUR) AS DATE_TIME
+,CAST(TRANSPORT_TYPE_ID AS INT64) AS TRANSPORT_TYPE_ID
+,ROAD_TYPE
+,LINE
+,TRANSFER_TYPE
+,CAST(number_of_passage AS INT64) AS NUMBER_OF_PASSAGE
+,CAST(number_of_passenger AS INT64) AS NUMBER_OF_PASSENGER
+,PRODUCT_KIND
+,TRANSACTION_TYPE_DESC
+,TOWN
+,LINE_NAME
+,station_poi_desc_cd 
+FROM `bronze.hourly_transportation`
+WHERE CAST(number_of_passenger AS INT) > 0

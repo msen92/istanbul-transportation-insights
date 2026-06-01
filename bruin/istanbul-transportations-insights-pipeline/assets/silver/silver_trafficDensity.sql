@@ -18,7 +18,7 @@ columns:
      description: "unique id of the a record"
      primary_key: true
      checks:
-       - name: not_null
+      - name: not_null
 
    - name: DATE_TIME
      type: DATETIME
@@ -102,7 +102,6 @@ custom_checks:
          OR LONGITUDE < 27.9 OR LONGITUDE > 29.9
          OR LATITUDE IS NULL OR LONGITUDE IS NULL
     value: 0
-
 @bruin */
 
 SELECT 
