@@ -81,7 +81,6 @@ istanbul-transportation-insights/
 ├── .bruin.yml
 ├── .env
 ├── .gitignore
-├── hourly_transportation_202405.csv
 ├── README.md
 ├── .github/                  # GitHub Actions workflows
 ├── bruin/                    # Bruin pipeline definitions
