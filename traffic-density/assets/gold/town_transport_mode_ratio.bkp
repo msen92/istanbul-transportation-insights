@@ -6,9 +6,12 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
 depends:
-  - gold.rail_town_summary
-  - gold.transportation_town_mode_summary
+  - silver.rail_town_summary
+  - silver.transportation_town_mode_summary
 
 @bruin */
 
@@ -39,7 +42,7 @@ WITH transportation_pivot AS (
 
     SUM(total_passengers) AS total_hourly_transportation_passengers
 
-  FROM datapsecta-bruin.silver.transportation_town_mode_summary
+  FROM silver.transportation_town_mode_summary
   GROUP BY
     town
 ),
@@ -54,7 +57,7 @@ base AS (
     COALESCE(t.total_hourly_rail_passengers, 0) AS total_hourly_rail_passengers,
     COALESCE(t.total_hourly_transportation_passengers, 0) AS total_hourly_transportation_passengers
 
-  FROM datapsecta-bruin.silver.rail_town_summary AS r
+  FROM silver.rail_town_summary AS r
   FULL OUTER JOIN transportation_pivot AS t
     ON r.town = t.town
 ),

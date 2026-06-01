@@ -6,6 +6,9 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
 depends:
   - gold.traffic_hourly_summary
   - gold.transportation_hourly_summary
@@ -18,7 +21,7 @@ SELECT
   tr.total_number_of_passengers AS total_passengers,
   t.total_number_of_vehicles AS total_vehicles,
   t.avg_traffic_speed AS avg_speed
-FROM datapsecta-bruin.silver.traffic_hourly_summary AS t
-INNER JOIN datapsecta-bruin.silver.transportation_hourly_summary AS tr
+FROM gold.traffic_hourly_summary AS t
+INNER JOIN gold.transportation_hourly_summary AS tr
   ON t.traffic_date = tr.transportation_date
  AND t.traffic_hour = tr.transportation_hour;

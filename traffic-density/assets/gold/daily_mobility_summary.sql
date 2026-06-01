@@ -6,6 +6,9 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
 depends:
   - gold.rail_daily_summary
   - gold.transportation_daily_road_summary
@@ -22,10 +25,10 @@ SELECT
 
   traffic.daily_avg_speed AS daily_avg_speed
 
-FROM datapsecta-bruin.gold.rail_daily_summary AS r
+FROM gold.rail_daily_summary AS r
 
-INNER JOIN datapsecta-bruin.silver.transportation_daily_road_summary AS road
+INNER JOIN gold.transportation_daily_road_summary AS road
   ON r.rail_date = road.transportation_date
 
-INNER JOIN datapsecta-bruin.silver.traffic_daily_summary AS traffic
+INNER JOIN gold.traffic_daily_summary AS traffic
   ON r.rail_date = traffic.traffic_date;

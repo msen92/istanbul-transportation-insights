@@ -2,12 +2,15 @@
 name: gold.top_10_geohash_regions
 type: bq.sql
 
+tags:
+  - gold
+
 materialization:
   type: table
   strategy: create+replace
 
 depends:
-  - gold.traffic_hourly_summary
+   - silver.traffic_density
 
 @bruin */
 
@@ -19,7 +22,7 @@ WITH geohash_base AS (
 
     SAFE_CAST(AVERAGE_SPEED AS FLOAT64) AS average_speed
 
-  FROM datapsecta-bruin.bronze.traffic_density
+  FROM silver.traffic_density
 
   WHERE GEOHASH IS NOT NULL
     AND TRIM(GEOHASH) != ''

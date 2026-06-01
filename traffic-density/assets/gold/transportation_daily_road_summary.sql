@@ -6,6 +6,12 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
+depends:
+  - silver.hourly_transportation
+
 @bruin */
 
 SELECT
@@ -13,7 +19,7 @@ SELECT
 
   SUM(SAFE_CAST(number_of_passenger AS INT64)) AS total_road_passengers
 
-FROM datapsecta-bruin.silver.hourly_transportation
+FROM silver.hourly_transportation
 WHERE date_time IS NOT NULL
   AND number_of_passenger IS NOT NULL
   AND SAFE_CAST(number_of_passenger AS INT64) >= 0

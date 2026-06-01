@@ -1,6 +1,9 @@
 """@bruin
-name: hourly_transportation_202405
+name: bronze.rail_system_stats
 image: python:3.11-slim
+
+tags:
+  - bronze
 # We do NOT use 'materialization' here because we want to 
 # keep the raw files in GCS for our BigLake External Table.
 @bruin"""
@@ -14,7 +17,7 @@ import os
 def run():
     # 1. Configuration from .bruin.yml or Environment
     bucket_name = os.getenv("BRONZE_BUCKET")
-    resource_id = "857998e9-c051-4172-a988-757f03b1ac6c"
+    resource_id = "f0efe978-7451-40d4-a03e-d8d7b992ae78"
     base_url = f"https://data.ibb.gov.tr/api/3/action/datastore_search?resource_id={resource_id}"
     
     # 2. Fetching Logic (with pagination)
@@ -66,14 +69,14 @@ def run():
     bucket = storage_client.bucket(bucket_name)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    blob = bucket.blob(f"hourly_transportation/load_{timestamp}.json")
+    blob = bucket.blob(f"rail_system_stats/load_{timestamp}.json")
     
     blob.upload_from_string(
         data=nd_json_content,
         content_type='application/x-ndjson'
     )
     
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] BASARILI: {len(all_records)} kayit gs://{bucket_name}/hourly_transportation/ dizinine yüklendi.")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] BASARILI: {len(all_records)} kayit gs://{bucket_name}/rail_system_stats/ dizinine yüklendi.")
 
 if __name__ == "__main__":
     #run()

@@ -6,13 +6,19 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
+depends:
+  - silver.hourly_transportation
+
 @bruin */
 
 SELECT
   UPPER(TRIM(CAST(town AS STRING))) AS town,
   UPPER(TRIM(CAST(road_type AS STRING))) AS road_type,
   SUM(SAFE_CAST(number_of_passenger AS INT64)) AS total_passengers
-FROM datapsecta-bruin.silver.hourly_transportation
+FROM silver.hourly_transportation
 WHERE town IS NOT NULL
   AND TRIM(CAST(town AS STRING)) != ''
   AND road_type IS NOT NULL

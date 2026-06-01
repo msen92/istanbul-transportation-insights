@@ -6,6 +6,9 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
 depends:
   - gold.daily_mobility_summary
 
@@ -16,5 +19,5 @@ SELECT
   analysis_date,
   total_rail_passengers + total_road_passengers AS total_passengers,
   ROUND(daily_avg_speed, 2) AS avg_traffic_speed
-FROM datapsecta-bruin.gold.daily_mobility_summary
+FROM gold.daily_mobility_summary
 ORDER BY analysis_date;

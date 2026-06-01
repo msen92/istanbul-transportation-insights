@@ -6,6 +6,9 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
 depends:
   - gold.hourly_mobility_summary
 
@@ -18,7 +21,7 @@ WITH base AS (
     total_passengers,
     total_vehicles,
     avg_speed
-  FROM datapsecta-bruin.gold.hourly_mobility_summary
+  FROM gold.hourly_mobility_summary
   WHERE analysis_date BETWEEN DATE '2024-05-01' AND DATE '2024-05-31'
     AND avg_speed IS NOT NULL
     AND total_passengers IS NOT NULL

@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: dagster-bruin
+Version: 0.0.1
+Summary: <insert description here>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: dagster>=1.8.0
+
+# dagster-bruin
+
+## Test
+
+```sh
+make test
+```
+
+## Build
+
+```sh
+make build
+```

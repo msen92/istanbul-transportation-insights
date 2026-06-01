@@ -6,6 +6,9 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
 depends:
   - silver.traffic_density
 
@@ -21,7 +24,7 @@ SELECT
 
   SUM(number_of_vehicles) AS daily_total_vehicles
 
-FROM `datapsecta-bruin.silver.traffic_density`
+FROM `silver.traffic_density`
 
 WHERE DATE_TIME IS NOT NULL
   AND average_speed IS NOT NULL

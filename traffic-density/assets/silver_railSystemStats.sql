@@ -5,11 +5,12 @@ description: >
   "the table contains the rail system statistics of different regions of istanbul in a specified time interval"
 tags:
   - rail_system_statistics
+  - silver
 materialization:
   type: table
   strategy: create+replace
 depends:
-   - rail_system_stats_2024
+   - bronze.rail_system_stats
 
 columns:
    - name: id
@@ -89,7 +90,7 @@ columns:
 custom_checks:
   - name: year-check-for-2024
     description: all dates must be from 2024
-    query: SELECT count(*) as not2024 FROM `datapsecta-bruin.silver.rail_system_stats` WHERE EXTRACT(YEAR FROM DATE_TIME) != 2024;
+    query: SELECT count(*) as not2024 FROM `silver.rail_system_stats` WHERE EXTRACT(YEAR FROM DATE_TIME) != 2024;
     value: 0
 
 @bruin */
@@ -107,6 +108,6 @@ _id as id
 ,PASSAGE_CNT
 ,PASSANGER_CNT 
 ,AGE
-FROM `datapsecta-bruin.bronze.rail_system_stats`
+FROM `bronze.rail_system_stats`
 WHERE passanger_cnt > 0
 

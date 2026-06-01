@@ -6,6 +6,12 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
+depends:
+   - silver.traffic_density
+
 @bruin */
 
 WITH cleaned AS (
@@ -13,7 +19,7 @@ WITH cleaned AS (
     SAFE_CAST(DATE_TIME AS TIMESTAMP) AS traffic_timestamp,
     SAFE_CAST(AVERAGE_SPEED AS FLOAT64) AS average_speed,
     SAFE_CAST(NUMBER_OF_VEHICLES AS INT64) AS number_of_vehicles
-  FROM `datapsecta-bruin.bronze.traffic_density`
+  FROM `silver.traffic_density`
   WHERE DATE_TIME IS NOT NULL
 ),
 

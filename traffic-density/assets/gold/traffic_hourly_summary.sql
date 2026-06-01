@@ -6,6 +6,12 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
+depends:
+  - silver.traffic_density
+
 @bruin */
 
 SELECT
@@ -13,7 +19,7 @@ SELECT
   EXTRACT(HOUR FROM DATE_TIME) AS traffic_hour,
   AVG(AVERAGE_SPEED) AS avg_traffic_speed,
   SUM(NUMBER_OF_VEHICLES) AS total_number_of_vehicles
-FROM `datapsecta-bruin.silver.traffic_density`
+FROM `silver.traffic_density`
 WHERE DATE_TIME IS NOT NULL
   AND AVERAGE_SPEED IS NOT NULL
   AND NUMBER_OF_VEHICLES IS NOT NULL

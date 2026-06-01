@@ -6,6 +6,12 @@ materialization:
   type: table
   strategy: create+replace
 
+tags:
+  - gold
+
+depends:
+   - silver.rail_system_stats
+
 @bruin */
 
 WITH base AS (
@@ -28,7 +34,7 @@ WITH base AS (
 
     SAFE_CAST(passanger_cnt AS INT64) AS passenger_count
 
-  FROM datapsecta-bruin.bronze.rail_systems_stats_2024
+  FROM silver.rail_system_stats
 
   WHERE passanger_cnt IS NOT NULL
     AND SAFE_CAST(passanger_cnt AS INT64) >= 0

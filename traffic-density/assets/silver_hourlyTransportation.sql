@@ -5,10 +5,12 @@ description: >
   "the table contains the hourly public transportation statistics of different regions of istanbul in a specified time interval"
 tags:
   - hourly_transportation
+  - silver
 materialization:
   type: table
   strategy: create+replace
-
+depends:
+  - bronze.hourly_transportation
 columns:
   - name: DATE_TIME
     type: timestamp
@@ -69,14 +71,14 @@ custom_checks:
     description: "Ensure the TRANSFER_TYPE column only contains expected accepted values."
     query: >
       SELECT count(*) as invalid_transfer_types
-      FROM `datapsecta-bruin.silver.hourly_transportation`
+      FROM `silver.hourly_transportation`
       WHERE TRANSFER_TYPE NOT IN ('Normal', 'Aktarma', 'Ucretsiz') 
         AND TRANSFER_TYPE IS NOT NULL
     value: 0
 
   - name: year-check-for-2024
     description: all dates must be from 2024
-    query: SELECT count(*) as not2024 FROM `datapsecta-bruin.silver.hourly_transportation` WHERE EXTRACT(YEAR FROM DATE_TIME) != 2024;
+    query: SELECT count(*) as not2024 FROM `silver.hourly_transportation` WHERE EXTRACT(YEAR FROM DATE_TIME) != 2024;
     value: 0
 
 @bruin */
@@ -94,5 +96,5 @@ DATETIME_ADD(DATETIME(transition_date), INTERVAL CAST(transition_hour AS INT64) 
 ,TOWN
 ,LINE_NAME
 ,station_poi_desc_cd 
-FROM `datapsecta-bruin.bronze.hourly_transportation`
+FROM `bronze.hourly_transportation`
 WHERE CAST(number_of_passenger AS INT) > 0
