@@ -71,3 +71,39 @@ Watch your materializations happen in real time on the lineage graph. Furthermor
 
 ![visualized_asset_execution](images/visualized_asset_execution.png)
 ![visualized_execution_time](images/visualized_execution_time.png)
+
+---
+
+## 📁 Project Structure
+
+```text
+istanbul-transportation-insights/
+├── .bruin.yml
+├── .env
+├── .gitignore
+├── hourly_transportation_202405.csv
+├── README.md
+├── .github/                  # GitHub Actions workflows
+├── bruin/                    # Bruin pipeline definitions
+├── dagster-bruin/            # Dagster integration source code
+├── images/                   # Screenshots for documentation
+├── logs/                     # Execution logs
+├── terraform/                # Infrastructure as code definitions
+└── traffic-density/          # Traffic density project / pipelines
+```
+
+---
+
+## 📊 Exploratory Data Analysis Results
+
+An exploratory data analysis visualization illustrating the daily relationship between total passenger volume and average traffic speed throughout specific dates.
+
+![Exploratory Data Analysis](images/EDA1.png)
+
+---
+
+## 🔗 Bruin Lineage
+
+This is how the asset lineage and dependencies are visualized natively within Bruin.
+
+![Bruin Lineage](images/lineage.png)
