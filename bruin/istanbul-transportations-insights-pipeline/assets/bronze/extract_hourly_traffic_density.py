@@ -80,5 +80,5 @@ def run():
     print(f"[{datetime.now().strftime('%H:%M:%S')}] BASARILI: {len(all_records)} kayit gs://{bucket_name}/traffic_density/ dizinine yüklendi.")
 
 if __name__ == "__main__":
-    #run()
+    run()
     print("deactived")
